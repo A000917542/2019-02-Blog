@@ -78,6 +78,8 @@ abstract class Controller {
 
     function view ($path, $data = []) {
 
+        extract($data);
+
         require(ROOT . "/private/app/views/$path.php");
 
     }
