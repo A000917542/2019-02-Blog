@@ -10,10 +10,17 @@ class Main extends Controller {
      * http://localhost/
      */
     function Index () {
-        $data = Array("title" => "Index Page");
+        
+
+        $this->model('blogmodel');
+
+        $version = $this->blogmodel->DBVersion();
+
+        $data = Array("title" => "Index Page", "version" => $version);
+
         $this->view("template/header", $data);
         $this->view("template/menu", $data);
-        $this->view("main/index");
+        $this->view("main/index", $data);
         $this->view("template/footer");
         
     }

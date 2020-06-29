@@ -62,18 +62,22 @@ abstract class Controller {
     }
 
     abstract function Index ();
-
+    
     function model ($path) {
-        // $path = $path;
+        // $path = blogmodel;
 
         $class = explode('/', $path);
         $class = $class[count($class)-1];
+
+        // $class = 'blogmodel';
 
         $path = strtolower($path);
 
         require(ROOT . "/private/app/models/$path.php");
 
         $this->$class = new $class;
+
+        // $this->blogmodel = new blogmodel();
     }
 
     function view ($path, $data = []) {
