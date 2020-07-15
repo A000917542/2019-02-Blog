@@ -30,8 +30,21 @@
         }
 
         function load () {
-            require_once(ROOT . "/private/core/classes/controller.php");
-            require_once(ROOT . "/private/core/classes/model.php");
+            spl_autoload_register(function ($class) {
+
+                $class = strtolower($class);
+                if (file_exists(ROOT . "/private/core/classes/$class.php")) {
+
+                    require_once(ROOT . "/private/core/classes/$class.php");
+
+                } else if (file_exists(ROOT . "/private/core/helpers/$class.php")) {
+
+                    require_once(ROOT . "/private/core/helpers/$class.php");
+
+                }
+
+            });
+            
         }
 
         function require ($path) {
@@ -41,12 +54,18 @@
         }
 
         function start () {
+            $route = explode('/', URI);
 
-            $this->require("/private/app/controllers/main.php");
-            $main = new Main();
+            $route[1] = strtolower($route[1]);
 
+            if (file_exists(ROOT . "/private/app/controllers/" . $route[1] . ".php")) {
+                $this->require("/private/app/controllers/" . $route[1] . ".php");
+                $controller = new $route[1]();
+            } else {
+                $this->require("/private/app/controllers/main.php");
+                $main = new Main();
+            }
         }
-        
     }
 
 ?>
