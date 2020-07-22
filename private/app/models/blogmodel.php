@@ -15,6 +15,12 @@ class BlogModel extends Model {
         return $res;
     }
 
+    function createPost($title, $content) {
+        $sql = "INSERT INTO `blog` (title, content) VALUES (:title, :content)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(array("title"=>$title, "content"=>$content));
+    }
+
 }
 
 
