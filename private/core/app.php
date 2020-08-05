@@ -56,6 +56,10 @@
         function start () {
             $route = explode('/', URI);
 
+            session_start();
+
+            $_SESSION["isLoggedIn"] = true;
+
             $route[1] = strtolower($route[1]);
 
             if (file_exists(ROOT . "/private/app/controllers/" . $route[1] . ".php")) {
