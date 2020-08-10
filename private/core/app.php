@@ -58,7 +58,7 @@
 
             session_start();
 
-            $_SESSION["isLoggedIn"] = true;
+            // $_SESSION["isLoggedIn"] = true;
 
             $route[1] = strtolower($route[1]);
 
